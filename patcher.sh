@@ -1,5 +1,5 @@
 # clean previous patches
-rm patches/**.bps &>/dev/null
+find patches -type f -name "*.bps" -delete
 
 # build runningshoes patches
 cd poke-solus-fr-rse
