@@ -1,0 +1,3 @@
+[submodule "poke-solus-fr-rse"]
+	path = poke-solus-fr-rse
+	url = git@github.com:persuaded9041/poke-solus-fr-rse.git
