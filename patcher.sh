@@ -1,39 +1,29 @@
-# clean previous patches
+#!/bin/bash
+
+# Function to build patches
+build_patches() {
+    local branch="$1"
+    local suffix="$2"
+
+    # Switch to the correct branch
+    cd poke-solus-fr-rse
+    git switch "$branch"
+    ./build.sh "$3"  # Pass an optional argument (e.g., "noshoes")
+    cd ..
+
+    # Create BPS patches
+    for color in red green blue; do
+        ./flips --create "pokemon${color}.gb" "poke-solus-fr-rse/pokesolus${color}.gbc" "patches/pokesolus-${suffix}-${color}.bps"
+    done
+}
+
+# Clean previous patches
 find patches -type f -name "*.bps" -delete
 
-# build runningshoes patches
-cd poke-solus-fr-rse
-git switch runningshoes
-make RGBDS=../rgbds/
-cd ..
-./flips --create pokemonred.gb poke-solus-fr-rse/pokesolusred.gbc patches/pokesolus-rse-red.bps
-./flips --create pokemonred.gb poke-solus-fr-rse/pokesolusgreen.gbc patches/pokesolus-rse-green.bps
-./flips --create pokemonblue.gb poke-solus-fr-rse/pokesolusblue.gbc patches/pokesolus-rse-blue.bps
-find poke-solus-fr-rse -type f -name "*.o" -delete
-find poke-solus-fr-rse -type f -name "*.gbc" -delete
-find poke-solus-fr-rse -type f -name "*.map" -delete
-find poke-solus-fr-rse -type f -name "*.sym" -delete
-find poke-solus-fr-rse -type f -name "*.pic" -delete
-find poke-solus-fr-rse -type f -name "*.1bpp" -delete
-find poke-solus-fr-rse -type f -name "*.2bpp" -delete
+# Build patches for each configuration
+build_patches "runningshoes" "rse"
+build_patches "solus-fr" "fr-rse"
+build_patches "solus-fr" "fr" "noshoes"
 
-# build solus-fr patches
-cd poke-solus-fr-rse
-git switch solus-fr
-make RGBDS=../rgbds/
-cd ..
-./flips --create pokemonred.gb poke-solus-fr-rse/pokesolusred.gbc patches/pokesolus-fr-red.bps
-./flips --create pokemonred.gb poke-solus-fr-rse/pokesolusgreen.gbc patches/pokesolus-fr-green.bps
-./flips --create pokemonblue.gb poke-solus-fr-rse/pokesolusblue.gbc patches/pokesolus-fr-blue.bps
-find poke-solus-fr-rse -type f -name "*.o" -delete
-find poke-solus-fr-rse -type f -name "*.gbc" -delete
-find poke-solus-fr-rse -type f -name "*.map" -delete
-find poke-solus-fr-rse -type f -name "*.sym" -delete
-find poke-solus-fr-rse -type f -name "*.pic" -delete
-find poke-solus-fr-rse -type f -name "*.1bpp" -delete
-find poke-solus-fr-rse -type f -name "*.2bpp" -delete
-
-# get back to master
-cd poke-solus-fr-rse
-git switch master
-cd ..
+# Cleanup generated files
+find poke-solus-fr-rse -type f \( -name "*.o" -o -name "*.gbc" -o -name "*.map" -o -name "*.sym" -o -name "*.pic" -o -name "*.1bpp" -o -name "*.2bpp" \) -delete
