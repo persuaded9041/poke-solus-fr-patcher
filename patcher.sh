@@ -4,17 +4,18 @@
 build_patches() {
     local branch="$1"
     local suffix="$2"
+    local build_arg="$3"
 
     # Switch to the correct branch
     cd poke-solus-fr-rse
     git switch "$branch"
-    ./build.sh "$3"  # Pass an optional argument (e.g., "noshoes")
+    ./build.sh "$build_arg"  # Pass an optional argument (e.g., "noshoes")
     cd ..
 
     # Create BPS patches
-    for color in red green blue; do
-        ./flips --create "pokemon${color}.gb" "poke-solus-fr-rse/pokesolus${color}.gbc" "patches/pokesolus-${suffix}-${color}.bps"
-    done
+    ./flips --create pokemonred.gb poke-solus-fr-rse/pokesolusred.gbc patches/pokesolus-${suffix}-red.bps
+    ./flips --create pokemonred.gb poke-solus-fr-rse/pokesolusgreen.gbc patches/pokesolus-${suffix}-green.bps
+    ./flips --create pokemonblue.gb poke-solus-fr-rse/pokesolusblue.gbc patches/pokesolus-${suffix}-blue.bps
 }
 
 # Clean previous patches
