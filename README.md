@@ -1,4 +1,4 @@
-# Automated patch creator for poke-solus-fr-rse
+# Automated patch creator for poke-solus-fr
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ Initialize the project by running `init.sh`:
 ```
 
 This will:
-- Clone the `poke-solus-fr-rse` repository
+- Clone the `poke-solus-fr` repository
 - Download the latest version of `rgbds` (to build the GBC files)
 - Download the latest version of `flips` (to generate patches)
 

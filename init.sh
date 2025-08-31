@@ -1,11 +1,11 @@
-# clone poke-solus-fr-rse
+# clone poke-solus-fr
 git submodule init 
 git submodule update
 
 # Download the latest release of Flips
 curl -s https://api.github.com/repos/Alcaro/Flips/releases/latest | awk -F\" '/browser_download_url.*.flips-linux.zip/{system("curl -OL " $(NF-1))}'
 # Decompress the build of Flips
-unzip -o -j flips-linux.zip "builds/linux-x64-gui.zip/flips"
+unzip -j flips-linux.zip "$(unzip -Z1 flips-linux.zip | grep -E '(^|/)flips$')" -d .
 chmod u+x flips
 
 # Download the latest release of rgbds
