@@ -4,8 +4,8 @@
 
 You will need the US versions of Pokémon Red and Blue in the root folder of this project, named:
 
-- `pokemonred.gb`
-- `pokemonblue.gb`
+- `Pokemon - Red Version (USA, Europe) (SGB Enhanced).gb`
+- `Pokemon - Blue Version (USA, Europe) (SGB Enhanced).gb`
 
 ## Initialize the project
 
